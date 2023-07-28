@@ -6,9 +6,9 @@ input.onButtonPressed(Button.A, function () {
     HAND = randint(1, 3)
     if (HAND == 1) {
         basic.showLeds(`
+            . . . # #
             . . # # #
             . # # # #
-            # # # # #
             # # # # #
             # # # # #
             `)
@@ -26,11 +26,11 @@ input.onButtonPressed(Button.A, function () {
         serial.writeLine("RPSROCK")
     } else {
         basic.showLeds(`
-            # . . . #
-            . # . # .
+            # # . . #
+            # # . # .
             . . # . .
-            # # . # #
-            # # . # #
+            # # . # .
+            # # . . #
             `)
         basic.clearScreen()
         serial.writeLine("RPSSISSOR")
@@ -52,87 +52,114 @@ input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 let HAND = 0
 music.setBuiltInSpeakerEnabled(true)
 power.lowPowerEnable(LowPowerEnable.Prevent)
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # . . .
-        # . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        `)
-}
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # # . .
-        # # . . .
-        # . . . .
-        . . . . .
-        . . . . .
-        `)
-}
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # # # .
-        # # # . .
-        # # . . .
-        # . . . .
-        . . . . .
-        `)
-}
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # # # #
-        # # # # .
-        # # # . .
-        # # . . .
-        # . . . .
-        `)
-}
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # # # #
-        # # # # #
-        # # # # .
-        # # # . .
-        # # . . .
-        `)
-}
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # .
-        # # # . .
-        `)
-}
-for (let index = 0; index < 1; index++) {
-    basic.showLeds(`
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # #
-        `)
-}
+basic.showLeds(`
+    # # . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `)
+basic.showLeds(`
+    # # # . .
+    # # . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    `)
+basic.showLeds(`
+    # # # # .
+    # # # . .
+    # # . . .
+    # . . . .
+    . . . . .
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # .
+    # # # . .
+    # # . . .
+    # . . . .
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # #
+    # # # # .
+    # # # . .
+    # # . . .
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # .
+    # # # . .
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    `)
 basic.clearScreen()
 serial.writeLine("test")
 serial.writeLine("m:b active")
 basic.forever(function () {
-    if (input.buttonIsPressed(Button.A)) {
-        WaitUntilBlocks.waitUntilButtonPressed(Button.B)
-        control.reset()
-    }
+    WaitUntilBlocks.waitUntilButtonPressed(Button.B)
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        # . # . #
+        . . # . .
+        . . # . .
+        `)
+    basic.showLeds(`
+        . # # # .
+        # . # . #
+        . . # . .
+        . . # . .
+        . . . . .
+        `)
+    basic.showLeds(`
+        # . . . #
+        . . # . .
+        . . # . .
+        . . . . .
+        . . . . .
+        `)
+    basic.showLeds(`
+        . . # . .
+        . . # . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.showLeds(`
+        . . # . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.showLeds(`
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        . . . . .
+        `)
+    basic.clearScreen()
 })
 basic.forever(function () {
     serial.redirectToUSB()
     if (input.temperature() < 0) {
         serial.writeLine("micro:bit cold")
         music.play(music.stringPlayable("C C5 C C5 C C5 - - ", 200), music.PlaybackMode.UntilDone)
-    }
-    if (input.temperature() > 40) {
+    } else if (input.temperature() > 40) {
         serial.writeLine("micro:bit hot")
         music.play(music.stringPlayable("C5 C C5 C C5 C - - ", 200), music.PlaybackMode.UntilDone)
+    } else {
+    	
     }
 })
 basic.forever(function () {

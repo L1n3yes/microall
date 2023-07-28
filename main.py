@@ -8,9 +8,9 @@ def on_button_pressed_a():
     HAND = randint(1, 3)
     if HAND == 1:
         basic.show_leds("""
+            . . . # #
             . . # # #
             . # # # #
-            # # # # #
             # # # # #
             # # # # #
             """)
@@ -28,11 +28,11 @@ def on_button_pressed_a():
         serial.write_line("RPSROCK")
     else:
         basic.show_leds("""
-            # . . . #
-            . # . # .
+            # # . . #
+            # # . # .
             . . # . .
-            # # . # #
-            # # . # #
+            # # . # .
+            # # . . #
             """)
         basic.clear_screen()
         serial.write_line("RPSSISSOR")
@@ -57,80 +57,64 @@ def on_logo_pressed():
 input.on_logo_event(TouchButtonEvent.PRESSED, on_logo_pressed)
 
 HAND = 0
-radio.set_group(1)
-music.play(music.create_sound_expression(WaveShape.SQUARE,
-        1,
-        2078,
-        0,
-        255,
-        3125,
-        SoundExpressionEffect.NONE,
-        InterpolationCurve.LINEAR),
-    music.PlaybackMode.IN_BACKGROUND)
 music.set_built_in_speaker_enabled(True)
 power.low_power_enable(LowPowerEnable.PREVENT)
-for index in range(1):
-    basic.show_leds("""
-        # # . . .
-        # . . . .
-        . . . . .
-        . . . . .
-        . . . . .
-        """)
-for index2 in range(1):
-    basic.show_leds("""
-        # # # . .
-        # # . . .
-        # . . . .
-        . . . . .
-        . . . . .
-        """)
-for index3 in range(1):
-    basic.show_leds("""
-        # # # # .
-        # # # . .
-        # # . . .
-        # . . . .
-        . . . . .
-        """)
-for index4 in range(1):
-    basic.show_leds("""
-        # # # # #
-        # # # # .
-        # # # . .
-        # # . . .
-        # . . . .
-        """)
-for index5 in range(1):
-    basic.show_leds("""
-        # # # # #
-        # # # # #
-        # # # # .
-        # # # . .
-        # # . . .
-        """)
-for index6 in range(1):
-    basic.show_leds("""
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # .
-        # # # . .
-        """)
-for index7 in range(1):
-    basic.show_leds("""
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # #
-        # # # # #
-        """)
+basic.show_leds("""
+    # # . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    """)
+basic.show_leds("""
+    # # # . .
+    # # . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    """)
+basic.show_leds("""
+    # # # # .
+    # # # . .
+    # # . . .
+    # . . . .
+    . . . . .
+    """)
+basic.show_leds("""
+    # # # # #
+    # # # # .
+    # # # . .
+    # # . . .
+    # . . . .
+    """)
+basic.show_leds("""
+    # # # # #
+    # # # # #
+    # # # # .
+    # # # . .
+    # # . . .
+    """)
+basic.show_leds("""
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # .
+    # # # . .
+    """)
+basic.show_leds("""
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    """)
 basic.clear_screen()
 serial.write_line("test")
 serial.write_line("m:b active")
 
 def on_forever():
-    pass
+    if True:
+        pass
 basic.forever(on_forever)
 
 def on_forever2():
@@ -139,10 +123,12 @@ def on_forever2():
         serial.write_line("micro:bit cold")
         music.play(music.string_playable("C C5 C C5 C C5 - - ", 200),
             music.PlaybackMode.UNTIL_DONE)
-    if input.temperature() > 40:
+    elif input.temperature() > 40:
         serial.write_line("micro:bit hot")
         music.play(music.string_playable("C5 C C5 C C5 C - - ", 200),
             music.PlaybackMode.UNTIL_DONE)
+    else:
+        pass
 basic.forever(on_forever2)
 
 def on_forever3():
