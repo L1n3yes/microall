@@ -103,6 +103,7 @@ basic.showLeds(`
     # # # # #
     `)
 basic.clearScreen()
+basic.showString("WELCOME TO MICRO:ALL 0.2.0")
 loops.everyInterval(1000, function () {
     runtime += 1
 })
