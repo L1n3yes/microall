@@ -52,7 +52,7 @@ let runtime = 0
 let HAND = 0
 music.setBuiltInSpeakerEnabled(true)
 power.lowPowerEnable(LowPowerEnable.Prevent)
-music.play(music.createSoundExpression(WaveShape.Square, 1, 5000, 255, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
+music.play(music.createSoundExpression(WaveShape.Square, 1, 5000, 0, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
 basic.showLeds(`
     # # . . .
     # . . . .
