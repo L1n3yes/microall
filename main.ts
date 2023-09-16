@@ -160,13 +160,20 @@ basic.forever(function () {
     	
     }
 })
-// nonstop stuff
-basic.forever(function () {
-	
-})
 basic.forever(function () {
     WaitUntilBlocks.waitUntilButtonPressed(Button.AB)
     WaitUntilBlocks.waitUntilPinPressed(TouchPin.P0)
     WaitUntilBlocks.waitUntilPinPressed(TouchPin.P1)
-    music.play(music.stringPlayable("C C5 B D G A C - ", 120), music.PlaybackMode.UntilDone)
+    images.createBigImage(`
+        . . # # # # # # . .
+        . # . . . . . . # .
+        . # . # . . # . # .
+        . # . . . . . . # .
+        . . # # # # # # . .
+        `).scrollImage(1, 200)
+    basic.clearScreen()
+})
+// nonstop stuff
+basic.forever(function () {
+	
 })

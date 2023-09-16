@@ -6,7 +6,6 @@
         "core": "*",
         "power": "github:microbit-foundation/pxt-microbit-v2-power#v0.2.3",
         "Wait Until Custom Blocks": "github:teacherpinky/wait-until-blocks#v0.1.12",
-        "datalogger": "*",
         "radio-broadcast": "*",
         "pxt-DS3231": "github:keble6/pxt-ds3231#v1.0.2",
         "microbit-pxt-clicks": "github:bsiever/microbit-pxt-clicks#v0.2.2"
