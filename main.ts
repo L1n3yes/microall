@@ -151,11 +151,14 @@ basic.showLeds(`
     # # # # #
     `)
 basic.clearScreen()
+serial.writeLine("start")
 basic.forever(function () {
     if (input.temperature() < 0) {
         music.play(music.stringPlayable("C C C C C C C C ", 200), music.PlaybackMode.UntilDone)
+        serial.writeLine("temp HI")
     } else if (input.temperature() > 40) {
         music.play(music.stringPlayable("C5 C5 C5 C5 C5 C5 C5 C5 ", 200), music.PlaybackMode.UntilDone)
+        serial.writeLine("temp LO")
     } else {
     	
     }
