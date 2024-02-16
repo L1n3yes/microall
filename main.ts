@@ -26,9 +26,9 @@ input.onButtonPressed(Button.A, function () {
         basic.clearScreen()
     } else {
         basic.showLeds(`
-            # # . . #
+            # # . # #
             # # . # .
-            . . # . .
+            # . # . .
             # # . # .
             # # . . #
             `)
@@ -95,12 +95,9 @@ input.onButtonPressed(Button.B, function () {
 input.onPinPressed(TouchPin.P1, function () {
 	
 })
-input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    music.play(music.tonePlayable(randint(131, 988), music.beat(BeatFraction.Whole)), music.PlaybackMode.InBackground)
-})
 music.setBuiltInSpeakerEnabled(true)
 power.lowPowerEnable(LowPowerEnable.Prevent)
-music.play(music.createSoundExpression(WaveShape.Square, 1, 5000, 0, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
+music.play(music.createSoundExpression(WaveShape.Triangle, 1, 3936, 37, 37, 2000, SoundExpressionEffect.Tremolo, InterpolationCurve.Linear), music.PlaybackMode.InBackground)
 basic.showLeds(`
     # # . . .
     # . . . .
