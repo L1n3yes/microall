@@ -26,9 +26,9 @@ input.onButtonPressed(Button.A, function () {
         basic.clearScreen()
     } else {
         basic.showLeds(`
-            # # . # #
+            # # . . #
             # # . # .
-            # . # . .
+            . . # . .
             # # . # .
             # # . . #
             `)
