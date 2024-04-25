@@ -87,21 +87,16 @@ input.onButtonPressed(Button.B, function () {
             . . . . .
             # . . . #
             `)
+        basic.clearScreen()
     } else {
     	
     }
-    basic.clearScreen()
 })
 input.onPinPressed(TouchPin.P1, function () {
 	
 })
-input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-    music.play(music.stringPlayable("G C G C5 G G C G ", 341), music.PlaybackMode.UntilDone)
-    music.play(music.stringPlayable("G C G C5 G G C - ", 341), music.PlaybackMode.UntilDone)
-})
 music.setBuiltInSpeakerEnabled(true)
 power.lowPowerEnable(LowPowerEnable.Prevent)
-music.play(music.createSoundExpression(WaveShape.Sine, 1, 5000, 255, 255, 2000, SoundExpressionEffect.None, InterpolationCurve.Curve), music.PlaybackMode.InBackground)
 basic.showLeds(`
     # # . . .
     # . . . .
@@ -151,8 +146,63 @@ basic.showLeds(`
     # # # # #
     # # # # #
     `)
-basic.clearScreen()
+control.waitMicros(6000)
+basic.showLeds(`
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # #
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # #
+    # # # # #
+    # # # # .
+    # # # . .
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # #
+    # # # # .
+    # # # . .
+    # # . . .
+    `)
+basic.showLeds(`
+    # # # # #
+    # # # # .
+    # # # . .
+    # # . . .
+    # . . . .
+    `)
+basic.showLeds(`
+    # # # # .
+    # # # . .
+    # # . . .
+    # . . . .
+    . . . . .
+    `)
+basic.showLeds(`
+    # # # . .
+    # # . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    `)
+basic.showLeds(`
+    # # . . .
+    # . . . .
+    . . . . .
+    . . . . .
+    . . . . .
+    `)
 serial.writeLine("start")
+basic.clearScreen()
+radio.setGroup(1)
+loops.everyInterval(10000000, function () {
+    radio.sendString("Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber))
+    serial.writeLine("Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber))
+})
 basic.forever(function () {
     if (input.temperature() < 0) {
         music.play(music.stringPlayable("C C5 C C5 C C5 C C5 ", 200), music.PlaybackMode.UntilDone)
