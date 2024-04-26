@@ -11,7 +11,8 @@
         "microbit-pxt-clicks": "github:bsiever/microbit-pxt-clicks#v0.2.2",
         "pxt-morse": "github:bsiever/pxt-morse#v2.0.0",
         "datalogger": "*",
-        "audio-recording": "*"
+        "audio-recording": "*",
+        "servo": "*"
     },
     "files": [
         "main.blocks",

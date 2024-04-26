@@ -38,6 +38,12 @@ input.onButtonPressed(Button.A, function () {
 input.onPinPressed(TouchPin.P2, function () {
 	
 })
+radio.onReceivedString(function (receivedString) {
+    WaitUntilBlocks.waitUntilPinPressed(TouchPin.P2)
+    if (receivedString == "Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber)) {
+        music.play(music.createSoundExpression(WaveShape.Triangle, 599, 1684, 0, 255, 500, SoundExpressionEffect.Tremolo, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
+    }
+})
 input.onButtonPressed(Button.B, function () {
     if (randint(1, 6) == 1) {
         basic.showLeds(`
@@ -88,11 +94,16 @@ input.onButtonPressed(Button.B, function () {
             # . . . #
             `)
         basic.clearScreen()
+        basic.pause(1000000)
+        datalogger.mirrorToSerial(true)
     } else {
     	
     }
 })
 input.onPinPressed(TouchPin.P1, function () {
+	
+})
+input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 	
 })
 music.setBuiltInSpeakerEnabled(true)
@@ -224,10 +235,13 @@ basic.forever(function () {
         . # . # . . # . # .
         . # . . . . . . # .
         . . # # # # # # . .
-        `).scrollImage(1, 200)
+        `).scrollImage(0, 200)
     basic.clearScreen()
 })
 // nonstop stuff
 basic.forever(function () {
-	
+    let Servocont = 0
+    let Compon = 0
+    datalogger.log(datalogger.createCV("Compon", Compon))
+    serial.redirectToUSB()
 })
