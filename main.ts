@@ -94,8 +94,6 @@ input.onButtonPressed(Button.B, function () {
             # . . . #
             `)
         basic.clearScreen()
-        basic.pause(1000000)
-        datalogger.mirrorToSerial(true)
     } else {
     	
     }
@@ -210,6 +208,7 @@ basic.showLeds(`
 serial.writeLine("start")
 basic.clearScreen()
 radio.setGroup(1)
+datalogger.mirrorToSerial(true)
 loops.everyInterval(10000000, function () {
     radio.sendString("Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber))
     serial.writeLine("Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber))
