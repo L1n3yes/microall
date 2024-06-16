@@ -9,10 +9,8 @@
         "radio-broadcast": "*",
         "pxt-DS3231": "github:keble6/pxt-ds3231#v1.0.2",
         "microbit-pxt-clicks": "github:bsiever/microbit-pxt-clicks#v0.2.2",
-        "pxt-morse": "github:bsiever/pxt-morse#v2.0.0",
         "datalogger": "*",
-        "audio-recording": "*",
-        "servo": "*"
+        "audio-recording": "*"
     },
     "files": [
         "main.blocks",
@@ -27,7 +25,7 @@
         "branch": "v6.0.15",
         "tag": "v6.0.15",
         "commits": "https://github.com/microsoft/pxt-microbit/commits/82f37ac905dec4a3e7d92353d97398abab77d1ba",
-        "target": "6.0.26",
+        "target": "6.0.28",
         "pxt": "9.0.11",
         "targetId": "microbit"
     },
@@ -39,9 +37,9 @@
         "config": {
             "microbit-dal": {
                 "bluetooth": {
-                    "open": 1,
-                    "whitelist": 0,
-                    "security_level": null
+                    "open": 0,
+                    "whitelist": 1,
+                    "security_level": "SECURITY_MODE_ENCRYPTION_NO_MITM"
                 }
             }
         }

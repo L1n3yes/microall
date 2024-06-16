@@ -3,7 +3,8 @@ enum RadioMessage {
     started = 53023
 }
 input.onPinPressed(TouchPin.P0, function () {
-	
+    basic.showString("" + Time / 60 + "Mn")
+    basic.clearScreen()
 })
 input.onButtonPressed(Button.A, function () {
     if (randint(1, 3) == 1) {
@@ -36,74 +37,59 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onPinPressed(TouchPin.P2, function () {
-	
-})
-radio.onReceivedString(function (receivedString) {
-    WaitUntilBlocks.waitUntilPinPressed(TouchPin.P2)
-    if (receivedString == "Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber)) {
-        music.play(music.createSoundExpression(WaveShape.Triangle, 599, 1684, 0, 255, 500, SoundExpressionEffect.Tremolo, InterpolationCurve.Curve), music.PlaybackMode.UntilDone)
+    WaitUntilBlocks.waitUntilButtonPressed(Button.A)
+    WaitUntilBlocks.waitUntilButtonReleased(Button.B)
+    for (let index = 0; index < 4; index++) {
+        music.play(music.stringPlayable("C5 C5 C5 C5 C C C C ", 120), music.PlaybackMode.UntilDone)
     }
 })
 input.onButtonPressed(Button.B, function () {
-    if (randint(1, 6) == 1) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            . . # . .
-            . . . . .
-            . . . . .
-            `)
-    } else if (randint(1, 6) == 2) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            . # . # .
-            . . . . .
-            . . . . .
-            `)
-    } else if (randint(1, 6) == 3) {
-        basic.showLeds(`
-            . . . . .
-            . . . . .
-            # . # . #
-            . . . . .
-            . . . . .
-            `)
-    } else if (randint(1, 6) == 4) {
-        basic.showLeds(`
-            # . . . #
-            . . . . .
-            . . . . .
-            . . . . .
-            # . . . #
-            `)
-    } else if (randint(1, 6) == 5) {
-        basic.showLeds(`
-            # . . . #
-            . . . . .
-            . . # . .
-            . . . . .
-            # . . . #
-            `)
-    } else if (randint(1, 6) == 6) {
-        basic.showLeds(`
-            # . . . #
-            . . . . .
-            # . . . #
-            . . . . .
-            # . . . #
-            `)
-        basic.clearScreen()
-    } else {
-    	
+    if (randint(1, 9) == 1) {
+        basic.showNumber(1)
+    } else if (randint(1, 9) == 2) {
+        basic.showNumber(2)
+    } else if (randint(1, 9) == 3) {
+        basic.showNumber(3)
+    } else if (randint(1, 9) == 4) {
+        basic.showNumber(4)
+    } else if (randint(1, 9) == 5) {
+        basic.showNumber(5)
+    } else if (randint(1, 9) == 6) {
+        basic.showNumber(6)
+    } else if (randint(1, 9) == 7) {
+        basic.showNumber(7)
+    } else if (randint(1, 9) == 8) {
+        basic.showNumber(8)
+    } else if (randint(1, 9) == 9) {
+        basic.showNumber(9)
     }
+    basic.clearScreen()
 })
 input.onPinPressed(TouchPin.P1, function () {
-	
+    basic.showString("REC")
+    basic.showLeds(`
+        . . # . .
+        . # # # .
+        . # # # .
+        . . # . .
+        # # . # #
+        `)
+    record.startRecording(record.BlockingState.Blocking)
+    basic.showLeds(`
+        . . . . .
+        . . . . #
+        . . . # .
+        # . # . .
+        . # . . .
+        `)
+    basic.showString("Play?")
+    WaitUntilBlocks.waitUntilButtonPressed(Button.A)
+    record.playAudio(record.BlockingState.Blocking)
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
 	
 })
+let Time = 0
 music.setBuiltInSpeakerEnabled(true)
 power.lowPowerEnable(LowPowerEnable.Prevent)
 basic.showLeds(`
@@ -208,10 +194,8 @@ basic.showLeds(`
 serial.writeLine("start")
 basic.clearScreen()
 radio.setGroup(1)
-datalogger.mirrorToSerial(true)
-loops.everyInterval(10000000, function () {
-    radio.sendString("Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber))
-    serial.writeLine("Hello, Im " + radio.receivedPacket(RadioPacketProperty.SerialNumber))
+loops.everyInterval(1000, function () {
+    Time += 1
 })
 basic.forever(function () {
     if (input.temperature() < 0) {
@@ -223,24 +207,4 @@ basic.forever(function () {
     } else {
     	
     }
-})
-basic.forever(function () {
-    WaitUntilBlocks.waitUntilButtonPressed(Button.AB)
-    WaitUntilBlocks.waitUntilPinPressed(TouchPin.P0)
-    WaitUntilBlocks.waitUntilPinPressed(TouchPin.P1)
-    images.createBigImage(`
-        . . # # # # # # . .
-        . # . . . . . . # .
-        . # . # . . # . # .
-        . # . . . . . . # .
-        . . # # # # # # . .
-        `).scrollImage(0, 200)
-    basic.clearScreen()
-})
-// nonstop stuff
-basic.forever(function () {
-    let Servocont = 0
-    let Compon = 0
-    datalogger.log(datalogger.createCV("Compon", Compon))
-    serial.redirectToUSB()
 })
