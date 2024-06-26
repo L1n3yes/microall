@@ -1,69 +1,80 @@
 enum RadioMessage {
+    Call = 36293,
     message1 = 49434,
     started = 53023
 }
 input.onPinPressed(TouchPin.P0, function () {
-    basic.showString("" + Time / 60 + "Mn")
-    basic.clearScreen()
+    radio.sendString(control.deviceName())
+})
+buttonClicks.onButtonDoubleClicked(buttonClicks.AorB.A, function () {
+    WaitUntilBlocks.waitUntilButtonPressed(Button.A)
+    WaitUntilBlocks.waitUntilButtonPressed(Button.AB)
+    basic.showString("Tilt right to increase.")
+    Functionturnoffradgroupnum = 1
+})
+datalogger.onLogFull(function () {
+    datalogger.deleteLog()
 })
 input.onButtonPressed(Button.A, function () {
-    if (randint(1, 3) == 1) {
-        basic.showLeds(`
-            . . # # #
-            . # # # #
-            # # # # #
-            # # # # #
-            # # # # #
-            `)
-        basic.clearScreen()
-    } else if (randint(1, 3) == 2) {
-        basic.showLeds(`
-            . . . . .
-            . # # . .
-            . # # # .
-            . . # # .
-            . . . . .
-            `)
-        basic.clearScreen()
-    } else {
-        basic.showLeds(`
-            # # . . #
-            # # . # .
-            . . # . .
-            # # . # .
-            # # . . #
-            `)
-        basic.clearScreen()
+    if (Functionturnoffradgroupnum == 0 || Functionturnoff == 0) {
+        if (randint(1, 3) == 1) {
+            basic.showLeds(`
+                . . # # #
+                . # # # #
+                # # # # #
+                # # # # #
+                # # # # #
+                `)
+            music.play(music.createSoundExpression(WaveShape.Noise, 5000, 1, 255, 0, 200, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+            basic.clearScreen()
+        } else if (randint(1, 3) == 2) {
+            basic.showLeds(`
+                . . . . .
+                . # # . .
+                . # # # .
+                . . # # .
+                . . . . .
+                `)
+            music.play(music.createSoundExpression(WaveShape.Sine, 318, 356, 255, 255, 200, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+            basic.clearScreen()
+        } else {
+            basic.showLeds(`
+                # # . . #
+                # # . # .
+                . . # . .
+                # # . # .
+                # # . . #
+                `)
+            music.play(music.createSoundExpression(WaveShape.Sine, 0, 500000000000000, 255, 255, 100, SoundExpressionEffect.None, InterpolationCurve.Linear), music.PlaybackMode.UntilDone)
+        }
     }
 })
 input.onPinPressed(TouchPin.P2, function () {
     WaitUntilBlocks.waitUntilButtonPressed(Button.A)
-    WaitUntilBlocks.waitUntilButtonReleased(Button.B)
-    for (let index = 0; index < 4; index++) {
-        music.play(music.stringPlayable("C5 C5 C5 C5 C C C C ", 120), music.PlaybackMode.UntilDone)
+    WaitUntilBlocks.waitUntilButtonPressed(Button.B)
+})
+input.onButtonPressed(Button.AB, function () {
+    if (Functionturnoffradgroupnum == 1) {
+        radio.setGroup(radgroupnum)
+        basic.showLeds(`
+            . . . . .
+            . . . . #
+            . . . # .
+            # . # . .
+            . # . . .
+            `)
+        Functionturnoffradgroupnum = 0
+        basic.clearScreen()
     }
 })
+radio.onReceivedString(function (receivedString) {
+    basic.showString("" + (receivedString.split("")))
+})
 input.onButtonPressed(Button.B, function () {
-    if (randint(1, 9) == 1) {
-        basic.showNumber(1)
-    } else if (randint(1, 9) == 2) {
-        basic.showNumber(2)
-    } else if (randint(1, 9) == 3) {
-        basic.showNumber(3)
-    } else if (randint(1, 9) == 4) {
-        basic.showNumber(4)
-    } else if (randint(1, 9) == 5) {
-        basic.showNumber(5)
-    } else if (randint(1, 9) == 6) {
-        basic.showNumber(6)
-    } else if (randint(1, 9) == 7) {
-        basic.showNumber(7)
-    } else if (randint(1, 9) == 8) {
-        basic.showNumber(8)
-    } else if (randint(1, 9) == 9) {
-        basic.showNumber(9)
+    if (Functionturnoffradgroupnum == 0 || Functionturnoff == 0) {
+        basic.showString("" + (randint(1, 9)))
+        basic.clearScreen()
     }
-    basic.clearScreen()
 })
 input.onPinPressed(TouchPin.P1, function () {
     basic.showString("REC")
@@ -82,16 +93,25 @@ input.onPinPressed(TouchPin.P1, function () {
         # . # . .
         . # . . .
         `)
-    basic.showString("Play?")
-    WaitUntilBlocks.waitUntilButtonPressed(Button.A)
-    record.playAudio(record.BlockingState.Blocking)
+    record.playAudio(record.BlockingState.Nonblocking)
+    basic.clearScreen()
+})
+input.onGesture(Gesture.TiltRight, function () {
+    if (Functionturnoffradgroupnum == 1) {
+        radgroupnum += 1
+        if (radgroupnum == 25) {
+            radgroupnum = 1
+        }
+    }
 })
 input.onLogoEvent(TouchButtonEvent.Pressed, function () {
-	
+    music.play(music.tonePlayable(randint(131, 988), music.beat(BeatFraction.Whole)), music.PlaybackMode.InBackground)
 })
 let Time = 0
+let radgroupnum = 0
+let Functionturnoff = 0
+let Functionturnoffradgroupnum = 0
 music.setBuiltInSpeakerEnabled(true)
-power.lowPowerEnable(LowPowerEnable.Prevent)
 basic.showLeds(`
     # # . . .
     # . . . .
@@ -193,18 +213,30 @@ basic.showLeds(`
     `)
 serial.writeLine("start")
 basic.clearScreen()
-radio.setGroup(1)
 loops.everyInterval(1000, function () {
     Time += 1
 })
 basic.forever(function () {
     if (input.temperature() < 0) {
-        music.play(music.stringPlayable("C C5 C C5 C C5 C C5 ", 200), music.PlaybackMode.UntilDone)
-        serial.writeLine("temp HI")
-    } else if (input.temperature() > 40) {
-        music.play(music.stringPlayable("C5 C C5 C C5 C C5 C ", 200), music.PlaybackMode.UntilDone)
+        music.play(music.tonePlayable(262, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
         serial.writeLine("temp LO")
-    } else {
-    	
+    } else if (input.temperature() > 40) {
+        music.play(music.tonePlayable(988, music.beat(BeatFraction.Whole)), music.PlaybackMode.UntilDone)
+        serial.writeLine("temp HI")
+    }
+})
+basic.forever(function () {
+    datalogger.log(
+    datalogger.createCV("Time", Time),
+    datalogger.createCV("Functionturnoffradgroupnum", Functionturnoffradgroupnum),
+    datalogger.createCV("DEVICE NAME", control.deviceName()),
+    datalogger.createCV("Radgroupnum", radgroupnum),
+    datalogger.createCV("Functionturnoff", Functionturnoff),
+    datalogger.createCV("DEVICE SERIAL", control.deviceSerialNumber())
+    )
+})
+loops.everyInterval(100, function () {
+    if (Functionturnoffradgroupnum == 1) {
+        basic.showNumber(radgroupnum)
     }
 })
